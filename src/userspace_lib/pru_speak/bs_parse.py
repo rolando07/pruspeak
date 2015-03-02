@@ -98,19 +98,19 @@ def get_var(val):
 
 def byte_code_set_r(val1, val2):
 	'''
-	encodes instructions of the form SET DIO[a], arr[b]; 
+	Encodes instructions of the form SET DIO[a], arr[b]; 
 	where DIO can be replaced by PWM, TMR, AI, AO, etc
 	'''
 	#opcodes used 1-15
-	OPCODE_SET = {
-				'DIO' 	: 0x01,
-				'AO' 	: 0x02, #dummy comand
-				'AI' 	: 0x03,	#dummy command
-				'PWM' 	: 0x04,
-				'AIO'	: 0x07,	#to be implemented
-				'TONE'	: 0x0A,
-				'TMR'	: 0x0D #till 0x0F
-				}
+	OPCODE_SET = 	{
+			'DIO' 	: 0x01,
+			'AO' 	: 0x02, #dummy comand
+			'AI' 	: 0x03,	#dummy command
+			'PWM' 	: 0x04,
+			'AIO'	: 0x07,	#to be implemented
+			'TONE'	: 0x0A,
+			'TMR'	: 0x0D #till 0x0F
+			}
 	
 	OPCODE = OPCODE_SET[val1.val[0]] #byte3
 	byte0 = 0
@@ -163,13 +163,13 @@ def byte_code_set_r(val1, val2):
 			if byte0 == -1:
 				return 0
 			
-		#pack all the bytes
-		return pack_byte(OPCODE, byte2, byte1, byte0)
+	#pack all the bytes
+	return pack_byte(OPCODE, byte2, byte1, byte0)
 	print OPCODE, byte2, byte1, byte0  #packed_bytes		
 				
 def byte_code_set(val1, val2):
 	'''
-	encodes instruction of the form SET val1, val2
+	Encodes instruction of the form SET val1, val2
 	val1 is V/Arr ; val2 can be C/V/Arr(with const or var index)
 	'''
 	global pru_var_count
