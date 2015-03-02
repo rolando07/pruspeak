@@ -116,6 +116,47 @@ void dio_handler(int opcode, u32 inst)
 		send_ret_value(val2 ? 1 : 0);
 }
 
+
+void aio_handler(int opcode, u32 inst)
+{
+	int val1, val2;
+	if(opcode == SET_AI_a){
+	/* SET DIO[c/v], c/v */
+		
+		val1 = GET_BIT(inst, 23) ? var_loc[GET_BYTE(inst, 1)]: GET_BYTE(inst, 1);
+		val2 = GET_BIT(inst, 22) ? var_loc[GET_BYTE(inst, 0)]: GET_BYTE(inst, 0);
+	}
+	
+	else{	
+		// "SET DIO[c], arr[v]"  orelse "SET DIO[v] , arr[v]"
+		val1 = (opcode == SET_AI_b) ? GET_BYTE(inst, 2) : var_loc[GET_BYTE(inst,2)];
+		
+		//array size check -- this case same for both case
+		int index = var_loc[GET_BYTE(inst, 0)];
+		if (var_loc[GET_BYTE(inst,1)] <= index ){
+			//error
+			if (single_command)
+				send_ret_value(0);
+			return;
+		}
+		//if everything okay
+		int addr = GET_BYTE(inst, 1) + index + 1;
+		val2 = var_loc[addr];
+	}
+	/* set hi*/
+	if(val2 && (val1 < MAX_DIO)){ 
+        	__R30 = __R30 | ( 1 << val1);
+        }
+
+	/* set low*/
+        else{ 
+        	__R30 = __R30 & ~( 1 << val1);
+        }
+	
+	if(single_command)
+		send_ret_value(val2 ? 1 : 0);
+}
+
 void pwm_handler(int opcode, u32 inst)
 {
 	//takes in only PWM[c], c. This will be merged with dio later
@@ -713,6 +754,12 @@ void execute_instruction()
 		case SET_DIO_b:
 		case SET_DIO_c:
 			dio_handler(opcode, inst);
+		break;
+		
+		case SET_AI_a:
+		case SET_AI_b:
+		case SET_AI_c:
+			aio_handler(opcode, inst);
 		break;
 	
 		case SET_PWM_a:
