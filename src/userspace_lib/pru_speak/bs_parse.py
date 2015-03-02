@@ -99,13 +99,13 @@ def get_var(val):
 def byte_code_set_r(val1, val2):
 	'''
 	encodes instructions of the form SET DIO[a], arr[b]; 
-	where DIO can replaced by PWM, TMR, AI etc
+	where DIO can be replaced by PWM, TMR, AI, AO, etc
 	'''
 	#opcodes used 1-15
 	OPCODE_SET = {
 				'DIO' 	: 0x01,
-				'AO' 	: 0x01, #dummy comand
-				'AI' 	: 0x01,	#dummy command
+				'AO' 	: 0x02, #dummy comand
+				'AI' 	: 0x03,	#dummy command
 				'PWM' 	: 0x04,
 				'AIO'	: 0x07,	#to be implemented
 				'TONE'	: 0x0A,
@@ -143,11 +143,11 @@ def byte_code_set_r(val1, val2):
 		#and y is C/V/arr[const_val]
 		
 		if val1.arr_var:
-			#implies x is an V
+			#implies x is a Variable
 			byte2 |= 1<<7
 		
 		if val2.type == 'VAR' or val2.type == 'ARR':
-			#implies y is a V
+			#implies y is a Variable
 			byte2 |= 1<<6
 			
 		byte1 = pru_vars.get(val1.val[1], val1.val[1])
@@ -163,12 +163,10 @@ def byte_code_set_r(val1, val2):
 			if byte0 == -1:
 				return 0
 			
-	#pack all the bytes
-	return pack_byte(OPCODE, byte2, byte1, byte0)
-	
+		#pack all the bytes
+		return pack_byte(OPCODE, byte2, byte1, byte0)
 	print OPCODE, byte2, byte1, byte0  #packed_bytes		
 				
-
 def byte_code_set(val1, val2):
 	'''
 	encodes instruction of the form SET val1, val2
@@ -245,7 +243,7 @@ def byte_code_set(val1, val2):
 			if byte2 == -1:
 				return 0
 		else:
-		#val1 is an VAR
+		#val1 is a VAR
 			byte2 = pru_vars.get(val1.val, None)
 			if byte2 == None:
 				pru_vars[val1.val] = pru_var_count
@@ -328,8 +326,6 @@ def byte_code_single_op(cmd, val):
 			byte0 = val.val & 0xFF #lower 8 bits
 			byte1 = (val.val >> 8) & 0xFF #higher 8 bits
 
-		
-		
 	elif val.any_var:
 	#Var or Arr[Var]
 		byte2 = 0b01 << 6
@@ -345,7 +341,7 @@ def byte_code_single_op(cmd, val):
 	return pack_byte(OPCODE, byte2, byte1, byte0)
 	print byte3, byte2, byte1, byte0
 	
-
+	
 def byte_code_if(val1, val2, cond, goto):
 	'''
 	IF (val1 cond val2) GOTO goto
