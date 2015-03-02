@@ -1,7 +1,7 @@
 import ply.lex as lex
 
 #set of reserved variables
-R_VAR = set(['DIO', 'PWM', 'TONE', 'AIO', 'TMR'])
+R_VAR = set(['DIO', 'AO', 'AI', 'PWM', 'TONE', 'AIO', 'TMR'])
 
 #list of reserved words
 reserved = [
