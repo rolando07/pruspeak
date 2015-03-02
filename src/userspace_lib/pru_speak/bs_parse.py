@@ -105,8 +105,8 @@ def byte_code_set_r(val1, val2):
 	OPCODE_SET = 	{
 			'DIO' 	: 0x01,
 			'PWM' 	: 0x04,
-			'AO' 	: 0x07, #to be implemented
-			'AI' 	: 0x08,	#to be implemented
+			'AO' 	: 0x01, #to be implemented
+			'AI' 	: 0x01,	#to be implemented
 			'TONE'	: 0x0A,
 			'TMR'	: 0x0D	#till 0x0F
 			#'AIO'	: 0x07	to be implemented
