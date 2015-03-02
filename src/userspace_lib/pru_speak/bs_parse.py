@@ -31,9 +31,9 @@ pru_vars = {
 pru_arrs = {
 		#e.g. "arr1" : (0x10, 5) 
 		#start, size
-	#'DIO' : (240, 16), 
-	#'AO' : (240, 16),	#dummy command  
-	#'AI' : (240, 16),	#dummy command
+	'DIO' : (240, 16), 
+	#'AO' : (240, 16),	#to be implemented
+	#'AI' : (240, 16),	#to be implemented
 	#'AIO' : (248, 8)	#to be implemented
 }
 
@@ -163,10 +163,10 @@ def byte_code_set_r(val1, val2):
 			if byte0 == -1:
 				return 0
 			
-	print OPCODE, byte2, byte1, byte0  #packed_bytes
+	#Prints the "packed_bytes" to terminal.
+	print OPCODE, byte2, byte1, byte0  
 	#pack all the bytes
 	return pack_byte(OPCODE, byte2, byte1, byte0)
-			
 				
 def byte_code_set(val1, val2):
 	'''
