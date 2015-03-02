@@ -32,7 +32,9 @@ pru_arrs = {
 		#e.g. "arr1" : (0x10, 5) 
 		#start, size
 	'DIO' : (240, 16),
-	'AIO' : (248, 8)
+	'AO' : (240, 16),	#dummy command  
+	'AI' : (240, 16),	#dummy command
+	'AIO' : (248, 8)	#to be implemented
 }
 
 def BYTE(val, n):
@@ -102,8 +104,10 @@ def byte_code_set_r(val1, val2):
 	#opcodes used 1-15
 	OPCODE_SET = {
 				'DIO' 	: 0x01,
+				'AO' 	: 0x01, #dummy comand
+				'AI' 	: 0x01,	#dummy command
 				'PWM' 	: 0x04,
-				'AIO'	: 0x07,
+				'AIO'	: 0x07,	#to be implemented
 				'TONE'	: 0x0A,
 				'TMR'	: 0x0D #till 0x0F
 				}
