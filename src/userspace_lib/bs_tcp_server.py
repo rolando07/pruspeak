@@ -24,14 +24,14 @@ while True:
         try:
                 #blocking wait for data from client
                 bs_code = conn.recv(BUFFER_SIZE)
-                print "\n", "Recieved : ", bs_code
+                print "\n", "Recieved:", bs_code
 
                 if (not bs_code) or (bs_code == 'EXIT'):
 			break #send empty data to shutdown server
 
 		try:
                 	ret = pru_speak.execute_instruction(bs_code)
-			print "Return value : ", ret
+			print "Return value:", ret
 			if ret == []:
 				#no return value
 				conn.send('\n')
