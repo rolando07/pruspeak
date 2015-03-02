@@ -163,9 +163,10 @@ def byte_code_set_r(val1, val2):
 			if byte0 == -1:
 				return 0
 			
+	print OPCODE, byte2, byte1, byte0  #packed_bytes
 	#pack all the bytes
 	return pack_byte(OPCODE, byte2, byte1, byte0)
-	print OPCODE, byte2, byte1, byte0  #packed_bytes		
+			
 				
 def byte_code_set(val1, val2):
 	'''
