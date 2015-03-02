@@ -24,7 +24,7 @@ while True:
         try:
                 #blocking wait for data from client
                 bs_code = conn.recv(BUFFER_SIZE)
-                print "recieved : \n", bs_code, "\n"
+                print "\n Recieved : ", bs_code
 
                 if (not bs_code) or (bs_code == 'EXIT'):
 			break #send empty data to shutdown server
