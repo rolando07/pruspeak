@@ -31,10 +31,10 @@ pru_vars = {
 pru_arrs = {
 		#e.g. "arr1" : (0x10, 5) 
 		#start, size
-	'DIO' : (240, 16), 
+	#'DIO' : (240, 16), 
 	#'AO' : (240, 16),	#dummy command  
 	#'AI' : (240, 16),	#dummy command
-	'AIO' : (248, 8)	#to be implemented
+	#'AIO' : (248, 8)	#to be implemented
 }
 
 def BYTE(val, n):
