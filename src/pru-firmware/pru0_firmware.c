@@ -2,9 +2,11 @@
 #include "pru0_firmware.h"
 
 /*---------Newly Included--------*/
+#include <libcwd/sys.h>
+#include <stdio.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys.h>
+#include <sys/types.h>
 #include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
