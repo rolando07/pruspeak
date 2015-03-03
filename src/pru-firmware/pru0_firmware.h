@@ -50,6 +50,16 @@ u32 *shm_ret = 0;
 /* offset (from shm_ret) to current return value loc*/
 int ret_pointer = 1;
 
+
+
+/*---------Newly added---------*/
+extern int adc_initialized;
+
+int adc_setup(void);
+int read_value(unsigned int ain, float *value);
+void adc_cleanup(void);
+
+
 /* the compiled 32 bit instruction */
 u32 single_command = 0;
 
