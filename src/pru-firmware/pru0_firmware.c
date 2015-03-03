@@ -1,7 +1,7 @@
 #include "pru_firmware.h"
 #include "pru0_firmware.h"
 
-/*---------Newly Included--------*/
+/*---------Newly Included--------
 #include <libcwd/sys.h>
 #include <stdio.h>
 #include <stdio.h>
@@ -14,6 +14,7 @@
 
 char adc_prefix_dir[40]; //new
 int adc_initialized = 0; //new
+---------------------------------*/
 
 int var_loc[256];
 void wait(int);
@@ -179,7 +180,7 @@ void aio_handler(int opcode, u32 inst)
 
 
 
-/*---------Newly Included--------*/
+/*---------Newly Included--------
 int initialize_adc(void)
 {
     char test_path[40];
@@ -254,9 +255,7 @@ void adc_cleanup(void)
     unload_device_tree("cape-bone-iio");
 }
 
-
-
-
+----------------------------------------*/
 
 
 
@@ -867,9 +866,10 @@ void execute_instruction()
 		
 		case SET_AI_a:
 		case SET_AI_b:
-			initialize_adc(void);
+			aio_handler(opcode, inst);
+			/*initialize_adc(void);
 			read_value(opcode, inst);
-			adc_cleanup(void);
+			adc_cleanup(void);*/
 		break;
 	
 		case SET_PWM_a:
