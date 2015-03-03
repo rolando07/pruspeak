@@ -8,7 +8,6 @@
 #include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include "c_adc.h"
 #include "common.h"
 
 char adc_prefix_dir[40]; //new
