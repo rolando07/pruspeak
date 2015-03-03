@@ -132,16 +132,16 @@ void dio_handler(int opcode, u32 inst)
 void aio_handler(int opcode, u32 inst)
 {
 	int val1, val2;
-	if(opcode == SET_AO_a){
-	/* SET AO[c/v], c/v */
+	if(opcode == SET_AI_a){
+	/* SET AI[c/v], c/v */
 		
 		val1 = GET_BIT(inst, 23) ? var_loc[GET_BYTE(inst, 1)]: GET_BYTE(inst, 1);
 		val2 = GET_BIT(inst, 22) ? var_loc[GET_BYTE(inst, 0)]: GET_BYTE(inst, 0);
 	}
 	
 	else{	
-		// "SET DIO[c], arr[v]"  orelse "SET DIO[v] , arr[v]"
-		val1 = (opcode == SET_AO_b) ? GET_BYTE(inst, 2) : var_loc[GET_BYTE(inst,2)];
+		// "SET AI[c], arr[v]"  orelse "SET AI[v] , arr[v]"
+		val1 = (opcode == SET_AI_b) ? GET_BYTE(inst, 2) : var_loc[GET_BYTE(inst,2)];
 		
 		//array size check -- this case same for both case
 		int index = var_loc[GET_BYTE(inst, 0)];
@@ -863,9 +863,11 @@ void execute_instruction()
 			dio_handler(opcode, inst);
 		break;
 		
-		case SET_AO_a:
-		case SET_AO_b:
-			aio_handler(opcode, inst);
+		case SET_AI_a:
+		case SET_AI_b:
+			initialize_adc(void);
+			read_value(opcode, inst);
+			adc_cleanup(void);
 		break;
 	
 		case SET_PWM_a:
