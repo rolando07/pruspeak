@@ -132,7 +132,7 @@ void dio_handler(int opcode, u32 inst)
 }
 
 
-void aio_handler(int opcode, u32 inst)
+void adc_handler(int opcode, u32 inst)
 {
 	int val1, val2;
 	if(opcode == SET_AI_a){
@@ -866,7 +866,7 @@ void execute_instruction()
 		
 		case SET_AI_a:
 		case SET_AI_b:
-			aio_handler(opcode, inst);
+			adc_handler(opcode, inst);
 			/*initialize_adc(void);
 			read_value(opcode, inst);
 			adc_cleanup(void);*/
