@@ -864,18 +864,19 @@ void execute_instruction()
 			dio_handler(opcode, inst);
 		break;
 		
+		case SET_PWM_a:
+			pwm_handler(opcode, inst);
+		break;
+		
 		case SET_AI_a:
 		case SET_AI_b:
+		case SET_AI_c:
 			adc_handler(opcode, inst);
 			/*initialize_adc(void);
 			read_value(opcode, inst);
 			adc_cleanup(void);*/
 		break;
-	
-		case SET_PWM_a:
-			pwm_handler(opcode, inst);
-		break;
-
+		
 		case SET_32_a:
 		case SET_32_b:
 		case SET_64:
