@@ -164,7 +164,7 @@ def byte_code_set_r(val1, val2):
 				return 0
 			
 	#Prints the "packed_bytes" to terminal for debugging purposes.
-	print "OPCODE:",OPCODE, "- byte2:",byte2, "- PRU0/1_PIN:",byte1, "- Value:",byte0  
+	print "OPCODE:", OPCODE, "byte2:", byte2, "PRU0/1_PIN:", byte1, "Value:", byte0  
 	#pack all the bytes
 	return pack_byte(OPCODE, byte2, byte1, byte0)
 				
