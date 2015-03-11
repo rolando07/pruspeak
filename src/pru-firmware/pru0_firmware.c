@@ -865,6 +865,8 @@ void execute_instruction()
 		break;
 		
 		case SET_PWM_a:
+		case SET_PWM_b:
+		case SET_PWM_c:
 			pwm_handler(opcode, inst);
 		break;
 		
