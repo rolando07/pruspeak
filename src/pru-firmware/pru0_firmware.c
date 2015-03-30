@@ -891,7 +891,7 @@ void execute_instruction()
 	
 		case WAIT:
 		case GOTO:
-		case GET:
+		//case GET:
 			wait_goto_get_handler(opcode, inst);
 		break;
 
