@@ -433,8 +433,8 @@ void wait_goto_get_handler(int opcode, u32 inst)
 	else if (opcode == GOTO)
 		inst_pointer = val;
 
-	//else if((opcode == GET) && single_command)
-		//send_ret_value(val);	
+	else if((opcode == GET) && single_command)
+		send_ret_value(val);	
 }
 
 #if 1
@@ -891,7 +891,7 @@ void execute_instruction()
 	
 		case WAIT:
 		case GOTO:
-		//case GET:
+		case GET:
 			wait_goto_get_handler(opcode, inst);
 		break;
 
