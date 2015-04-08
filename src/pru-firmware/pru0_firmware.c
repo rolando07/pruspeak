@@ -255,9 +255,8 @@ void adc_cleanup(void)
     unload_device_tree("cape-bone-iio");
 }
 
-----------------------------------------*/
 
-
+*/
 
 
 
