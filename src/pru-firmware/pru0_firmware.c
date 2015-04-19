@@ -89,7 +89,7 @@ void dio_handler(int opcode, u32 inst)
 	/* print some text for testing */
 	const char *text = "DIO TEST WORKING";
 	f_dio = fopen("/var/log/pruspeak.log", "w");
-	fprintf(f, "Some text: %s\n", text);
+	fprintf(f_dio, "Some text: %s\n", text);
 	
 	if(opcode == SET_DIO_a){
 	/* SET DIO[c/v], c/v */
