@@ -1,21 +1,6 @@
 #include "pru_firmware.h"
 #include "pru0_firmware.h"
 
-/*---------Newly Included--------
-#include <libcwd/sys.h>
-#include <stdio.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <string.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include "common.h"
-
-char adc_prefix_dir[40]; //new
-int adc_initialized = 0; //new
----------------------------------*/
-
 int var_loc[256];
 void wait(int);
 int pwm_val = 0;
@@ -172,96 +157,6 @@ void adc_handler(int opcode, u32 inst)
 	if(single_command)
 		send_ret_value(val2 ? 1 : 0);
 }
-
-
-
-
-
-
-
-
-/*---------Newly Included--------
-int initialize_adc(void)
-{
-    char test_path[40];
-    FILE *fh;
-    if (adc_initialized) {
-        return 1;
-    }
-
-    if (load_device_tree("cape-bone-iio")) {
-        build_path("/sys/devices", "ocp.", ocp_dir, sizeof(ocp_dir));
-        build_path(ocp_dir, "helper.", adc_prefix_dir, sizeof(adc_prefix_dir));
-        strncat(adc_prefix_dir, "/AIN", sizeof(adc_prefix_dir));
-
-        // Test that the directory has an AIN entry (found correct devicetree)
-        snprintf(test_path, sizeof(test_path), "%s%d", adc_prefix_dir, 0);
-        
-        fh = fopen(test_path, "r");
-
-        if (!fh) {
-            return 0; 
-        }
-        fclose(fh);
-
-        adc_initialized = 1;
-        return 1;
-    }
-    return 0;
-}
-
-int read_value(unsigned int ain, float *value)
-{
-    FILE * fh;
-    char ain_path[40];
-    int err, try_count=0;
-    int read_successful;
-    snprintf(ain_path, sizeof(ain_path), "%s%d", adc_prefix_dir, ain);
-    
-    read_successful = 0;
-
-    // Workaround to AIN bug where reading from more than one AIN would cause access failures
-    while (!read_successful && try_count < 3)
-    {
-        fh = fopen(ain_path, "r");
-
-        // Likely a bad path to the ocp device driver 
-        if (!fh) {
-            return -1;
-        }
-
-        fseek(fh, 0, SEEK_SET);
-        err = fscanf(fh, "%f", value);
-
-        if (err != EOF) read_successful = 1;
-        fclose(fh);
-
-        try_count++;
-    }
-
-    if (read_successful) return 1;
-
-    // Fall through and fail
-    return -1;
-}
-
-int adc_setup()
-{
-    return initialize_adc();
-}
-
-void adc_cleanup(void)
-{
-    unload_device_tree("cape-bone-iio");
-}
-
-
-*/
-
-
-
-
-
 
 
 void pwm_handler(int opcode, u32 inst)
