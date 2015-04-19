@@ -83,16 +83,17 @@ int get_var_val(int addr)
 
 void dio_handler(int opcode, u32 inst)
 {
-	int val1, val2;
-	FILE *f_dio;
+	//int val1, val2;
+	FILE * f_dio;
 
 	/* print some text for testing */
 	const char *text = "DIO TEST WORKING";
 	f_dio = fopen("/var/log/pruspeak.log", "w");
 	fprintf(f_dio, "Some text: %s\n", text);
-	
+
+	/*	
 	if(opcode == SET_DIO_a){
-	/* SET DIO[c/v], c/v */
+	// SET DIO[c/v], c/v 
 		
 		val1 = GET_BIT(inst, 23) ? var_loc[GET_BYTE(inst, 1)]: GET_BYTE(inst, 1);
 		val2 = GET_BIT(inst, 22) ? var_loc[GET_BYTE(inst, 0)]: GET_BYTE(inst, 0);
@@ -114,18 +115,19 @@ void dio_handler(int opcode, u32 inst)
 		int addr = GET_BYTE(inst, 1) + index + 1;
 		val2 = var_loc[addr];
 	}
-	/* set hi*/
+	// set hi
 	if(val2 && (val1 < MAX_DIO)){ 
         	__R30 = __R30 | ( 1 << val1);
         }
 
-	/* set low*/
+	// set low
         else{ 
         	__R30 = __R30 & ~( 1 << val1);
         }
 	
 	if(single_command)
 		send_ret_value(val2 ? 1 : 0);
+	*/
 }
 
 
