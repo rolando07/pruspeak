@@ -84,6 +84,7 @@ int get_var_val(int addr)
 void dio_handler(int opcode, u32 inst)
 {
 	int val1, val2;
+	printf("TEST");
 	if(opcode == SET_DIO_a){
 	/* SET DIO[c/v], c/v */
 		
@@ -130,7 +131,6 @@ int adc_handler(int opcode)
         FILE * fp;
         char ain_path[40];
         float ai_value;
-        char test[10] = "works!";
         
         ain_path = "/sys/devices/ocp.3/helper.12/AIN0";
         fp = fopen(ain_path, "r");
