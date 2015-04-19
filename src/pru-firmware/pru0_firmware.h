@@ -81,9 +81,9 @@ extern void sc_downcall(int (*handler)(u32 nr, u32 arg0, u32 arg1, u32 arg2, u32
 #define SET_PWM_c       6
 
 /*GET RES[x] - Analog Input operation */
-#define GET_AI       	7
-#define GET_AI       	8
-#define GET_AI 		9
+#define GET_AI_a       	7
+#define GET_AI_b      	8
+#define GET_AI_c 	9
 
 /*To be implmented
 #define SET_AIO_a     x (Replace with an available upcode) 
