@@ -136,7 +136,7 @@ int adc_handler(int opcode)
         fp = fopen(ain_path, "r");
         fscanf(fp, "%f", ai_value);
         fclose(fp);
-        test > /var/log/pruspeak.log &;
+        printf("Works!");
         return ai_value;
 }
 //----------------
