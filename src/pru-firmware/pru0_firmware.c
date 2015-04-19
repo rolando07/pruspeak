@@ -130,9 +130,9 @@ int adc_handler(int opcode)
         FILE * fp;
         char ain_path[40];
         float ai_value;
-        char test[10] = 'works!';
+        char test[10] = "works!"";
         
-        ain_path = '/sys/devices/ocp.3/helper.12/AIN0';
+        ain_path = "/sys/devices/ocp.3/helper.12/AIN0";
         fp = fopen(ain_path, "r");
         fscanf(fp, "%f", ai_value);
         fclose(fp);
