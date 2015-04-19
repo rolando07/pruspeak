@@ -1,6 +1,11 @@
 #include "pru_firmware.h"
 #include "pru0_firmware.h"
 
+//------New------
+#include <stdio.h>
+#include <stdlib.h>
+//---------------
+
 int var_loc[256];
 void wait(int);
 int pwm_val = 0;
@@ -117,46 +122,25 @@ void dio_handler(int opcode, u32 inst)
 }
 
 
-void adc_handler(int opcode, u32 inst)
-{
-	int val1, val2;
-	if(opcode == GET_AI_a){
-	/* SET AI[c/v], c/v */
-		
-		val1 = GET_BIT(inst, 23) ? var_loc[GET_BYTE(inst, 1)]: GET_BYTE(inst, 1);
-		val2 = GET_BIT(inst, 22) ? var_loc[GET_BYTE(inst, 0)]: GET_BYTE(inst, 0);
-	}
-	
-	else{	
-		// "SET AI[c], arr[v]"  orelse "SET AI[v] , arr[v]"
-		val1 = (opcode == GET_AI_b) ? GET_BYTE(inst, 2) : var_loc[GET_BYTE(inst,2)];
-		
-		//array size check -- this case same for both case
-		int index = var_loc[GET_BYTE(inst, 0)];
-		if (var_loc[GET_BYTE(inst,1)] <= index ){
-			//error
-			if (single_command)
-				send_ret_value(0);
-			return;
-		}
-		//if everything okay
-		int addr = GET_BYTE(inst, 1) + index + 1;
-		val2 = var_loc[addr];
-	}
-	
-	/* set hi*/
-	if(val2 && (val1 < MAX_DIO)){ 
-        	__R30 = __R30 | ( 1 << val1);
-        }
 
-	/* set low*/
-        else{ 
-        	__R30 = __R30 & ~( 1 << val1);
-        }
-	
-	if(single_command)
-		send_ret_value(val2 ? 1 : 0);
+
+//-------New--------
+int adc_handler(int opcode)
+{
+        FILE * fp;
+        char ain_path[40];
+        float value;
+        char test = 'works!'
+        
+        ain_path = '/sys/devices/ocp.3/helper.12/AIN0';
+        fp = fopen(ain_path, "r");
+        fscanf(fp, "%f", value);
+        fclose(fp);
+        test > /var/log/pruspeak.log &
 }
+//----------------
+
+
 
 
 void pwm_handler(int opcode, u32 inst)
@@ -767,7 +751,7 @@ void execute_instruction()
 		case GET_AI_a:
 		case GET_AI_b:
 		case GET_AI_c:
-			adc_handler(opcode, inst);
+			adc_handler(opcode);
 			/*initialize_adc(void);
 			read_value(opcode, inst);
 			adc_cleanup(void);*/
