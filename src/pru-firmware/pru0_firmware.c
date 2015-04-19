@@ -84,7 +84,13 @@ int get_var_val(int addr)
 void dio_handler(int opcode, u32 inst)
 {
 	int val1, val2;
-	printf("TEST");
+	FILE *f_dio;
+
+	/* print some text for testing */
+	const char *text = "DIO TEST WORKING";
+	f_dio = fopen("/var/log/pruspeak.log", "w");
+	fprintf(f, "Some text: %s\n", text);
+	
 	if(opcode == SET_DIO_a){
 	/* SET DIO[c/v], c/v */
 		
@@ -128,15 +134,21 @@ void dio_handler(int opcode, u32 inst)
 //-------New--------
 int adc_handler(int opcode)
 {
-        FILE * fp;
+        FILE *fp;
+       	FILE *f;
+       	
         char ain_path[40];
         float ai_value;
         
+        /* print some text */
+	const char *text = "Write this to the file";
+	f = fopen("/var/log/pruspeak.log", "w");
+	fprintf(f, "Some text: %s\n", text);
+   
         ain_path = "/sys/devices/ocp.3/helper.12/AIN0";
         fp = fopen(ain_path, "r");
         fscanf(fp, "%f", ai_value);
         fclose(fp);
-        printf("Works!");
         return ai_value;
 }
 //----------------
