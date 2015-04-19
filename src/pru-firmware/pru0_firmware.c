@@ -120,7 +120,7 @@ void dio_handler(int opcode, u32 inst)
 void adc_handler(int opcode, u32 inst)
 {
 	int val1, val2;
-	if(opcode == SET_AI_a){
+	if(opcode == GET_AI_a){
 	/* SET AI[c/v], c/v */
 		
 		val1 = GET_BIT(inst, 23) ? var_loc[GET_BYTE(inst, 1)]: GET_BYTE(inst, 1);
@@ -129,7 +129,7 @@ void adc_handler(int opcode, u32 inst)
 	
 	else{	
 		// "SET AI[c], arr[v]"  orelse "SET AI[v] , arr[v]"
-		val1 = (opcode == SET_AI_b) ? GET_BYTE(inst, 2) : var_loc[GET_BYTE(inst,2)];
+		val1 = (opcode == GET_AI_b) ? GET_BYTE(inst, 2) : var_loc[GET_BYTE(inst,2)];
 		
 		//array size check -- this case same for both case
 		int index = var_loc[GET_BYTE(inst, 0)];
@@ -764,9 +764,9 @@ void execute_instruction()
 			pwm_handler(opcode, inst);
 		break;
 		
-		case SET_AI_a:
-		case SET_AI_b:
-		case SET_AI_c:
+		case GET_AI_a:
+		case GET_AI_b:
+		case GET_AI_c:
 			adc_handler(opcode, inst);
 			/*initialize_adc(void);
 			read_value(opcode, inst);
