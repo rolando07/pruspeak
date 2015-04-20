@@ -137,21 +137,24 @@ void dio_handler(int opcode, u32 inst)
 int adc_handler(int opcode)
 {
         FILE *fp;
-       	FILE *f;
        	
         char ain_path[40];
         float ai_value;
         
-        /* print some text */
-	const char *text = "Write this to the file";
-	f = fopen("/var/log/pruspeak.log", "w");
-	fprintf(f, "Some text: %s\n", text);
-   
+        /* The reading of the value takes place here */ 
         ain_path = "/sys/devices/ocp.3/helper.12/AIN0";
         fp = fopen(ain_path, "r");
         fscanf(fp, "%f", ai_value);
         fclose(fp);
-        return ai_value;
+        
+        /* Print some text into the log file for testing purposes */
+        FILE *f; //for testing only 
+	const char *text = "Write this to the file";
+	f = fopen("/var/log/pruspeak.log", "w");
+	fprintf(f, "Some text: %s\n", text);
+	/*--------------------------------------------------------*/
+	
+   	return ai_value;
 }
 //----------------
 
