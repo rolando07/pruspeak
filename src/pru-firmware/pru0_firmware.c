@@ -2,8 +2,8 @@
 #include "pru0_firmware.h"
 
 //------New------
-#include <stdio.h>
-#include <stdlib.h>
+//#include <stdio.h>
+//#include <stdlib.h>
 //---------------
 
 int var_loc[256];
